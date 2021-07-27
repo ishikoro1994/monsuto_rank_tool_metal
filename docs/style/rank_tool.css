@@ -67,11 +67,6 @@
   margin-top: initial;
 }
 
-/*シェアラベル*/
-#tweet_label {
-  float: left;
-}
-
 /*ウィンドウ幅が767px以上の場合に適用*/
 @media screen and (min-width: 1025px) {
   #over_rank_msg {
