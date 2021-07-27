@@ -4,6 +4,7 @@
         <link rel="stylesheet" href="./style/rank_tool.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+        <script src="//platform.twitter.com/widgets.js" charset="utf-8""></script>
         <script src="./js/rank_tool.js"></script>
         <title>モンスト　ランク計算ツール(ダイの大冒険コラボ用)</title>
     </head>
@@ -77,6 +78,12 @@
         </table>
         <p id="lap_tips">
             <label>「1日分」・「目標まで」は討伐数を表しています。</label>
+        </p>
+        <p>
+            <div id="share">
+                <label id="tweet_label">目標と現在の状況を</label>
+                <div id="tweet_area"></div>
+            </div>
         </p>
         <div id="contact">
             <label style="color: red;">質問・相談は作成者twitterまでご連絡ください。</label><br>

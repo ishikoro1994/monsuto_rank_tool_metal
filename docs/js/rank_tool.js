@@ -92,6 +92,9 @@ $(document).ready(function() {
             calcAll();
 
             $(ID_OVER_RANK_MSG).text('ランク:' + (maxRank + 1) + '以降は経験値:' + addFigure(lastExpDiff) + '毎に加算した目安です。');
+
+            // ツイートボタン生成
+            setTweetButton();
         });
 });
 
@@ -107,6 +110,8 @@ function changeTargetRank() {
     // 算出
     $(ID_TARGET_EXP).text(addFigure(calcRankToExp(ID_TARGET_RANK)));
     calcAll();
+    // ツイートボタン生成
+    setTweetButton();
 }
 
 /**
@@ -118,6 +123,8 @@ function changeNowRank() {
     calcAll();
     setCookieVal(NOW_RANK);
     setCookieVal(TOTAL_EXP, true);
+    // ツイートボタン生成
+    setTweetButton();
 }
 
 /**
@@ -133,6 +140,8 @@ function changeTotalExp() {
     calcAll();
     setCookieVal(NOW_RANK);
     setCookieVal(TOTAL_EXP, true);
+    // ツイートボタン生成
+    setTweetButton();
 }
 
 /**
@@ -159,6 +168,8 @@ function blurTotalExp() {
     setCookieVal(TARGET_YEAR);
     changeDay();
     calcAll();
+    // ツイートボタン生成
+    setTweetButton();
 }
 
 /**
@@ -169,6 +180,8 @@ function changeTargetMonth() {
     setCookieVal(TARGET_MONTH);
     changeDay();
     calcAll();
+    // ツイートボタン生成
+    setTweetButton();
 }
 
 /**
@@ -178,6 +191,8 @@ function changeTargetDay() {
     convertNum(TARGET_DAY);
     setCookieVal(TARGET_DAY);
     calcAll();
+    // ツイートボタン生成
+    setTweetButton();
 }
 
 /**
@@ -541,3 +556,43 @@ function setInitVal(id, isAddFigure = false, undefinedVal = '') {
         }
     }
 }
+
+/**
+ * ツイートボタン生成
+ */
+function setTweetButton(){
+    $('#tweet_area').empty(); //既存のボタン消す
+    var targetRank = $(ID_TARGET_RANK).val();
+    var nowRank = $(ID_NOW_RANK).val();
+
+    if (!targetRank || !nowRank || !$(ID_NEED_EXP).text()) {
+        return;
+    }
+
+    var text = '';
+    text += '【目標ランク】' + targetRank;
+    if (targetRank > maxRank) {
+        text += '(推定)';
+    }
+    text += '\n';
+    text += '【現在のランク】' + nowRank;
+    if (nowRank > maxRank) {
+        text += '(推定)';
+    }
+    text += '\n';
+    text += '【目標日】' + $(ID_TARGET_YEAR).val() + '年' + $(ID_TARGET_MONTH).val() + '月' + $(ID_TARGET_DAY).val() + '日' + '\n';
+    text += '目標までに必要な経験値は ' + $(ID_NEED_EXP).text() + '\n';
+    text += '毎日 ' + $(ID_DAYS_EXP).text() + ' 獲得すれば達成可能！';
+
+    // ボタン生成
+    twttr.widgets.createShareButton(
+      "",
+      document.getElementById("tweet_area"),
+      {
+        text: text, // 狙ったテキスト
+        url: 'https://ishikoro1994.github.io/monsuto_rank_tool_metal/',
+        hashtags: 'モンスト,モンスト目標宣言,はぐれメタル周回',
+        lang: 'ja'
+      }
+    );
+  }
